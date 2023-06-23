@@ -35,7 +35,7 @@ public class OrderingCardTest {
         driver= null;
     }
     @Test
-    void shouldTestOrderingCard() throws InterruptedException{
+    void shouldTestOrderingCard1() throws InterruptedException{
 
         driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
@@ -46,5 +46,54 @@ public class OrderingCardTest {
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
         Thread.sleep(5000);
 
+    }
+    @Test
+    void shouldTestOrderingCardThenDoubleName() throws InterruptedException{
+
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Марк-Эдгар Джекович");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button")).click();
+        String text = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText();
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
+        Thread.sleep(5000);
+
+    }
+    @Test
+    void shouldTestOrderingCardThenNameInLatin() throws InterruptedException{
+
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Ivan Ivanov");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button")).click();
+        String text = driver.findElement(By.className("input__sub")).getText();
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
+        Thread.sleep(5000);
+
+    }
+    @Test
+    void shouldTestOrderingCardThenCheckBoxDontPress() throws InterruptedException{
+
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
+        driver.findElement(By.cssSelector("button")).click();
+        String text = driver.findElement(By.className("checkbox__text")).getText();
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", text.trim());
+        Thread.sleep(5000);
+    }
+    @Test
+    void shouldTestOrderingCardThenPhoneNumberHasMoreThen11Digits() throws InterruptedException{
+
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+799900011222");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button")).click();
+        String text = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText();
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        Thread.sleep(5000);
     }
 }

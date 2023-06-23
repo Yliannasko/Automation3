@@ -13,3 +13,4 @@ public class Main {
 //        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
 //        String actual = $(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
 //        assertEquals(expected,actual);
+
