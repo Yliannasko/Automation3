@@ -36,9 +36,8 @@ public class OrderingCardTest {
         driver= null;
     }
     @Test
-    void shouldTestOrderingCard1() throws InterruptedException{
+    void shouldTestOrderingCard1() {
 
-        driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -48,9 +47,8 @@ public class OrderingCardTest {
 
     }
     @Test
-    void shouldTestOrderingCardThenDoubleName() throws InterruptedException{
+    void shouldTestOrderingCardThenDoubleName() {
 
-        driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Марк-Эдгар Джекович");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -60,9 +58,8 @@ public class OrderingCardTest {
 
     }
     @Test
-    void shouldTestOrderingCardThenNameInLatin() throws InterruptedException{
+    void shouldTestOrderingCardThenNameInLatin() {
 
-        driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Ivan Ivanov");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -72,19 +69,17 @@ public class OrderingCardTest {
 
     }
     @Test
-    void shouldTestOrderingCardThenCheckBoxDontPress() throws InterruptedException{
+    void shouldTestOrderingCardThenCheckBoxDontPress() {
 
-        driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
         driver.findElement(By.cssSelector("button")).click();
-        String text = driver.findElement(By.className("checkbox__text")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__text")).getText();
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", text.trim());
     }
     @Test
-    void shouldTestOrderingCardThenPhoneNumberHasMoreThen11Digits() throws InterruptedException{
+    void shouldTestOrderingCardThenPhoneNumberHasMoreThen11Digits() {
 
-        driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+799900011222");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -93,8 +88,8 @@ public class OrderingCardTest {
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
     @Test
-    void shouldTestOrderingCardThenNameFailedIsNotFiled() throws InterruptedException{
-        driver.get("http://localhost:9999/");
+    void shouldTestOrderingCardThenNameFailedIsNotFiled() {
+
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990001122");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("button")).click();
@@ -102,8 +97,8 @@ public class OrderingCardTest {
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
     @Test
-    void shouldTestOrderingCardThenPhoneFailedIsNotFiled() throws InterruptedException{
-        driver.get("http://localhost:9999/");
+    void shouldTestOrderingCardThenPhoneFailedIsNotFiled() {
+
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов Иван");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("button")).click();
